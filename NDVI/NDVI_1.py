@@ -1,16 +1,16 @@
 from xml.dom import minidom
 
-import rasterio
 import numpy
+import rasterio
 
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
 
 # Settings
     # Allow division by zero
 numpy.seterr(divide='ignore', invalid='ignore')
 
 # Local variables
-image_file = "planet_order_182996/20180316_150707_1938416_RapidEye-4/1938416_2018-03-16_RE4_3A_Analytic.tif"
+image_file = "https://api.planet.com/data/v1/item-types/REOrthoTile/items/20170402_111709_3163219_RapidEye-4/thumb"
 xmldoc = minidom.parse("planet_order_182996/20180316_150707_1938416_RapidEye-4/1938416_2018-03-16_RE4_3A_Analytic_metadata.xml")
 nodes = xmldoc.getElementsByTagName("ps:bandSpecificMetadata")
 
@@ -51,4 +51,3 @@ with rasterio.open('ndvi.tif', 'w', **kwargs) as dst:
 
 # Apply color scheme
 plt.imsave("ndvi_cmap.png", ndvi, cmap=plt.cm.summer)
-

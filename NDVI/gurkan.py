@@ -3,7 +3,7 @@
 import rasterio
 import numpy as np
 
-filename = "20180312_134231_0f4c_3B_AnalyticMS.tif"
+filename = "1938416_2018-03-16_RE4_3A_Analytic.tif"
 
 # Load red and NIR bands - note all PlanetScope 4-band images have band order BGRN
 with rasterio.open(filename) as src:
@@ -14,7 +14,7 @@ with rasterio.open(filename) as src:
     
 from xml.dom import minidom
 
-xmldoc = minidom.parse("20180312_134231_0f4c_3B_AnalyticMS_metadata.xml")
+xmldoc = minidom.parse("1938416_2018-03-16_RE4_3A_Analytic_metadata.xml")
 nodes = xmldoc.getElementsByTagName("ps:bandSpecificMetadata")
 
 # XML parser refers to bands by numbers 1-4
@@ -27,8 +27,9 @@ for node in nodes:
         coeffs[i] = float(value)
         
 # Multiply the Digital Number (DN) values in each band by the TOA reflectance coefficients
-band_red = band_red * coeffs[3]
 band_nir = band_nir * coeffs[4]
+band_red = band_red * coeffs[3]
+
 
 # Allow division by zero
 np.seterr(divide='ignore', invalid='ignore')
