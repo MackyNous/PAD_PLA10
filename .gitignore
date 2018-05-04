@@ -2,4 +2,6 @@ venv/
 .idea/
 .vscode/
 
+NDVI/planet_order_182996/
+
 *.save
